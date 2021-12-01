@@ -17,9 +17,10 @@ class DesignatedArea:
         return self.zone.contains( Point( inPoint)  )
 
 class ZoneConfig:
-    def __init__(self,ref_frame=[],load_config=True,path_config="./own_work/zone_config.json"):
+    def __init__(self,ref_frame=[],load_config=False,save_config=True,path_config="./own_work/zone_config.json"):
         self.ref_frame = ref_frame.copy()
         self.draw_frame = ref_frame.copy()
+        self.save_config = save_config
         self.mouse_x = -1
         self.mouse_y = -1
         self.pressed = False
@@ -192,13 +193,19 @@ class ZoneConfig:
         cv2.namedWindow('image')
         cv2.setMouseCallback('image',self.draw)
         print("LET'S CALIBRATE")
-        while cv2.waitKey(10)!=ord('q'):
+        command = cv2.waitKey(10)
+        while command != ord('q') and command != ord('u'):
             cv2.imshow('image',self.draw_frame)
-  
+            command = cv2.waitKey(10)
+
+        if command == ord('u'):
+            print("UPDATING FRAME")
+            return
+
         self.configured = True
         self.update_designated_area()
         cv2.destroyAllWindows()
-        if self.load_config:
+        if self.save_config:
             with open(self.path_config, 'w') as outfile:
                 data = {
                     "north_poly": self.north_poly,

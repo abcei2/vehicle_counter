@@ -104,7 +104,9 @@ def detect(opt, detection_manager):
     for frame_idx, (path, img, im0s, vid_cap, s) in enumerate(dataset):
         ###########
         if not detection_manager.zoneconfig.configured: 
-            detection_manager.set_zones(im0s)   
+            detection_manager.set_zones(im0s)  
+            continue 
+        
         ############
         t1 = time_sync()
         img = torch.from_numpy(img).to(device)

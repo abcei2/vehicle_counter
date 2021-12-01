@@ -208,8 +208,8 @@ class DetectionManager:
                 det_dict.pop("last_image")
                 dets_dict.append(det_dict)
 
-            # self.detections_dataframe = pd.DataFrame(dets_dict)
-            # self.detections_dataframe.to_csv("Data_"+self.count_timer.strftime("%d%m%y_%H_%M_%S")+".csv",sep=':')
+            self.detections_dataframe = pd.DataFrame(dets_dict)
+            self.detections_dataframe.to_csv("Data_"+self.count_timer.strftime("%d%m%y_%H_%M_%S")+".csv",sep=':')
 
         if is_lost:
             self.obj_lost(track_id,class_id)
