@@ -1,0 +1,6 @@
+.vscode/
+*.mp4
+*.pt
+yolov5/
+detections/
+deep_sort_pytorch/
